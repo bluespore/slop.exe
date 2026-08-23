@@ -66,16 +66,17 @@ export default function HomePage() {
       )}
 
       <p className="text-sm opacity-60">
-        Open source and open to contribution —{" "}
+        This game is built from random contributions, so you never know what
+        you&apos;ll get.{" "}
         <a
           href="https://github.com/bluespore/slop.exe"
           target="_blank"
           rel="noopener noreferrer"
           className="underline"
         >
-          fork it, change the game, commit, and push
+          Contribute here
         </a>
-        . Every PR that passes CI ships straight to next week&apos;s session.
+        .
       </p>
     </main>
   );
