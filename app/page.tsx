@@ -64,6 +64,19 @@ export default function HomePage() {
           </div>
         </form>
       )}
+
+      <p className="text-sm opacity-60">
+        Open source and open to contribution —{" "}
+        <a
+          href="https://github.com/bluespore/slop.exe"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline"
+        >
+          fork it, change the game, commit, and push
+        </a>
+        . Every PR that passes CI ships straight to next week&apos;s session.
+      </p>
     </main>
   );
 }
