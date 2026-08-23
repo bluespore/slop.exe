@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+/* Intentionally no theme customization. This project starts raw and
+   unstyled on purpose — contributors are expected to design against
+   plain Tailwind. See docs/GAME.md before adding a design system. */

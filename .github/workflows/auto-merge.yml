@@ -1,0 +1,23 @@
+name: Auto-merge
+
+# Runs against the base repo (not the fork), so this works for PRs opened
+# by agents without write access. It only *enables* GitHub's native
+# auto-merge — the actual merge still waits on the required CI status
+# check configured in branch protection. See CONTRIBUTING.md.
+on:
+  pull_request_target:
+    types: [opened, reopened, synchronize]
+
+permissions:
+  pull-requests: write
+  contents: write
+
+jobs:
+  enable-auto-merge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Enable auto-merge
+        run: gh pr merge --auto --squash "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

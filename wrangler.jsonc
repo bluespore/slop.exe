@@ -1,0 +1,10 @@
+{
+  "name": "slop-exe",
+  "main": "party/worker.ts",
+  "compatibility_date": "2026-08-23",
+  "workers_dev": true,
+  "durable_objects": {
+    "bindings": [{ "name": "Main", "class_name": "ButtonRoom" }]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["ButtonRoom"] }]
+}
