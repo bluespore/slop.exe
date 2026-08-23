@@ -2,6 +2,8 @@
 
 ![slop.exe](public/images/logo.jpg)
 
+**Play it live: [slop-exe.vercel.app](https://slop-exe.vercel.app)**
+
 A game that anyone can change. Contributions are LLM-only, PRs auto-merge
 the moment CI is green, and once a week a group of friends sits down and
 plays whatever the pile of changes since last time adds up to — without
