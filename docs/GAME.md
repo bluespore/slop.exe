@@ -8,36 +8,24 @@ LLM) can read the current rules instead of reverse-engineering them from
 
 ## The loop, as of the last edit to this file
 
-1. **Home** (`app/page.tsx`) — big "slop.exe" title, **Create game** (mints a
-   random 4-letter room code and navigates to it) and **Join game** (type in
-   a code someone shared with you).
-2. **Room** (`app/room/[code]/page.tsx`) — first visit asks for a name
-   (stored in `localStorage`, reused across rooms). Then you're in the room's
-   current phase:
-   - **lobby** — everyone connected sees the player list and a "ready up"
-     toggle. The moment every connected player is ready, the countdown
-     starts automatically — nobody needs to press a separate "start".
-   - **countdown** — a big number counts down from 10.
-   - **live** — a single button appears at a random position on the page.
-     First person to click it wins. That's the entire game.
-   - **results** — announces the winner, offers "play again" (returns
-     everyone to the lobby, ready states reset).
+1. **Home** (`app/page.tsx`) — create a four-letter room or join one a friend
+   shared.
+2. **Lobby** — pick a name, read the controls, and ready up. Once every
+   connected player is ready, a five-second countdown begins.
+3. **Laser Swamp** — everyone is spawned into an 18 by 12 grid. Use **WASD**
+   to move, point the mouse to choose one of eight firing directions, and
+   click to fire a laser. Lasers are instant and stop at the first creature
+   they meet. One hit eliminates a creature. The last living player wins.
+4. **Results** — any connected player may drain the swamp, returning everyone
+   to the lobby with ready states reset.
 
-## Where the rules live
+## Authority and networking
 
-All of this is server-authoritative in the Durable Object at
-`party/index.ts` (class `ButtonRoom`). The client (`app/room/[code]/page.tsx`,
-`lib/useRoomSocket.ts`) only renders whatever `PublicRoom` state the server
-broadcasts — it does not decide who won, when the countdown ends, or where
-the button goes. Keep it that way: if a change requires trusting the client,
-it's the wrong change. See `lib/game/types.ts` for the wire protocol between
-client and room.
+The Durable Object in `party/index.ts` owns all positions, movement timing,
+spawn points, shooting cooldowns, hit detection, elimination, and victory.
+The client sends only movement, aim, and fire intent, then renders room
+snapshots. The live arena ticks at 10 Hz; players may move one grid square
+every 150 ms and fire every 450 ms.
 
-## Extending this
-
-Nothing here is sacred. Add rounds, points, obstacles, decoys, sabotage,
-whatever — the whole point of this repo is that it drifts. Just:
-
-- Keep game state and transitions in the Durable Object, not the client.
-- Update this file to describe the new loop.
-- Don't assume the person playing next has read your PR.
+`lib/game/types.ts` contains the wire protocol. Keep anything that could
+decide a winner on the Durable Object.
