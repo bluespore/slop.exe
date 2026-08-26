@@ -4,6 +4,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 import { getStoredName, storeName } from "@/lib/identity";
+import { useGameAudio } from "@/lib/useGameAudio";
 import { useRoomSocket } from "@/lib/useRoomSocket";
 import type { PublicPlayer, PublicRoom } from "@/lib/game/types";
 
@@ -28,9 +29,10 @@ function NamePrompt({ onDone }: { onDone: (name: string) => void }) {
 
 function RoomClient({ code, name }: { code: string; name: string }) {
   const { room, playerId, actions, connected } = useRoomSocket(code, name);
+  const { muted, toggleMute } = useGameAudio(room);
   if (!connected || !room) return <main className="flex min-h-screen items-center justify-center">connecting…</main>;
   const you = room.players.find((player) => player.id === playerId) ?? null;
-  return <main className="mx-auto flex min-h-screen max-w-3xl flex-col items-center gap-6 p-6"><p className="text-sm tracking-widest text-gray-500">laser swamp // room {code}</p>{room.phase === "lobby" && <Lobby room={room} you={you} onReady={actions.setReady} />}{room.phase === "countdown" && <Countdown endsAt={room.countdownEndsAt} />}{room.phase === "live" && <Arena room={room} playerId={playerId} move={actions.move} aim={actions.aim} shoot={actions.shoot} />}{room.phase === "results" && <Results winnerName={room.winnerName} isYou={room.winnerId === playerId} onPlayAgain={actions.playAgain} />}</main>;
+  return <main className="mx-auto flex min-h-screen max-w-3xl flex-col items-center gap-6 p-6"><p className="text-sm tracking-widest text-gray-500">laser swamp // room {code} · <button type="button" onClick={toggleMute} className="cursor-pointer underline">{muted ? "unmute" : "mute"}</button></p>{room.phase === "lobby" && <Lobby room={room} you={you} onReady={actions.setReady} />}{room.phase === "countdown" && <Countdown endsAt={room.countdownEndsAt} />}{room.phase === "live" && <Arena room={room} playerId={playerId} move={actions.move} aim={actions.aim} shoot={actions.shoot} />}{room.phase === "results" && <Results winnerName={room.winnerName} isYou={room.winnerId === playerId} onPlayAgain={actions.playAgain} />}</main>;
 }
 
 function Lobby({ room, you, onReady }: { room: PublicRoom; you: PublicPlayer | null; onReady: (ready: boolean) => void }) {

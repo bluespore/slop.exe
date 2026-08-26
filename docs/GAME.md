@@ -19,6 +19,14 @@ LLM) can read the current rules instead of reverse-engineering them from
 4. **Results** — any connected player may drain the swamp, returning everyone
    to the lobby with ready states reset.
 
+Audio is client-side only and does not affect who wins. Each new laser shot
+plays a random adult-male scream (`public/audio/sfx/scream-01.mp3` through
+`scream-04.mp3`). A dubstep loop (`public/audio/music/dubstep-arena-loop.mp3`)
+starts when the arena goes live and stops when the round ends. Playback uses
+Web Audio in `lib/gameAudio.ts`: first click or keypress unlocks the context,
+hiding the tab suspends it, and a mute toggle on the room header silences every
+group.
+
 ## Authority and networking
 
 The Durable Object in `party/index.ts` owns all positions, movement timing,
