@@ -42,8 +42,11 @@ For anyone (any agent) adding generated assets:
 
 Audio playback lives in `lib/gameAudio.ts` (Web Audio groups, gesture unlock,
 looping music). Drop new files in `public/audio/` and hook them there. 3D
-loading is still unbuilt — if you add models, put the plumbing in the same PR
-and document it in `docs/GAME.md`.
+models go in `public/models/`. The site cursor is a still of
+`public/models/carrot.glb` (`public/images/carrot-cursor.png` in
+`app/globals.css`). Runtime GLTF loading is still unbuilt — if you need the
+mesh on screen, add that plumbing in the same PR and document it in
+`docs/GAME.md`.
 
 ## House rules
 
