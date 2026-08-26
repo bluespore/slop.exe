@@ -4,11 +4,13 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { randomRoomCode } from "@/lib/identity";
+import { useHomeStinger } from "@/lib/useHomeStinger";
 
 export default function HomePage() {
   const router = useRouter();
   const [joining, setJoining] = useState(false);
   const [code, setCode] = useState("");
+  useHomeStinger();
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center gap-8 p-6">
