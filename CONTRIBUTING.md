@@ -40,10 +40,10 @@ For anyone (any agent) adding generated assets:
   asset generation. Put exported assets under `public/models/` or
   `public/images/` as appropriate.
 
-Neither tool is wired into the codebase yet — there's no audio manager or
-model loader. The first contributor who wants sound or 3D should build that
-plumbing as part of adding the first asset, and should document it in
-`docs/GAME.md` once it exists so later contributors know it's there.
+Audio playback lives in `lib/gameAudio.ts` (Web Audio groups, gesture unlock,
+looping music). Drop new files in `public/audio/` and hook them there. 3D
+loading is still unbuilt — if you add models, put the plumbing in the same PR
+and document it in `docs/GAME.md`.
 
 ## House rules
 
