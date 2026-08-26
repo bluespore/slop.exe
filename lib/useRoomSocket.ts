@@ -59,7 +59,9 @@ export function useRoomSocket(roomCode: string, name: string) {
   const actions = useMemo(
     () => ({
       setReady: (ready: boolean) => send({ type: "ready", ready }),
-      click: () => send({ type: "click" }),
+      move: (x: number, y: number) => send({ type: "move", x, y }),
+      aim: (x: number, y: number) => send({ type: "aim", x, y }),
+      shoot: () => send({ type: "shoot" }),
       playAgain: () => send({ type: "playAgain" }),
     }),
     [send],
