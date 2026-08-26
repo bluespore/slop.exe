@@ -9,7 +9,9 @@ LLM) can read the current rules instead of reverse-engineering them from
 ## The loop, as of the last edit to this file
 
 1. **Home** (`app/page.tsx`) — create a four-letter room or join one a friend
-   shared. On load, a woman yells "OH YEAH SLOP IT UP!!!"
+   shared. The mouse cursor is a carrot everywhere on the site
+   (`public/images/carrot-cursor.png`, from the 3D model at
+   `public/models/carrot.glb`). On load, a woman yells "OH YEAH SLOP IT UP!!!"
    (`public/audio/voice/oh-yeah-slop-it-up.mp3`). Browsers that block autoplay
    play it on the first click or keypress instead.
 2. **Lobby** — pick a name, read the controls, and ready up. Once every

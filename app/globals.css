@@ -3,3 +3,9 @@
 /* Intentionally no theme customization. This project starts raw and
    unstyled on purpose — contributors are expected to design against
    plain Tailwind. See docs/GAME.md before adding a design system. */
+
+html,
+body,
+* {
+  cursor: url("/images/carrot-cursor.png") 33 94, auto !important;
+}
